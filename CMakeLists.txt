@@ -4,6 +4,6 @@ project (camera_fake)
 find_package( OpenCV REQUIRED )
 
 add_executable (camera_fake src/main.cpp)
-target_link_libraries (camera_fake tiobj ${OpenCV_LIBS})
+target_link_libraries (camera_fake tiobj tisys ${OpenCV_LIBS})
 
 install(TARGETS camera_fake DESTINATION bin)
