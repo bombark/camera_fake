@@ -16,16 +16,16 @@ using namespace cv;
 int main(){
 	TiObj params( getenv("params") );
 	int freq   = params.atInt("freq",10);
-	string robot_url = getenv("robot_url");
-	string url = robot_url + "/" + params.atStr("url");
+
+	string url = "const/" + params.atStr("url");
 	unsigned sleep_time = 1000000 / freq;
 	
 
-	TiObj file;
 	Filesystem fs;
-	fs.info(url);
-	cerr << "aaa" << fs;
+	TiObj file = fs.info(url);
 	Mat img;
+
+	cerr << file;
 
 	if ( file.is("Image") ){
 		img = imread(url);
@@ -46,7 +46,13 @@ int main(){
 			printf("#end");
 			fflush(stdout);
 		}
-
+		video.release();
+		
+	} else if ( file.is("Folder") ){
+		TiObj list = fs.ls(url);
+		list.orderby("name");
+		cerr << list;
+		
 	}
 
 
